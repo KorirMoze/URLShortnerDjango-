@@ -142,7 +142,7 @@ This covers http, https will be covered in a later tutorial<br/>
         }
         location / {
             include proxy_params;
-            proxy_pass http://unix:/home/username/URLShortnerProject/URLShortnerProject.sock;
+            proxy_pass http://unix:/run/gunicorn.sock;
         }
     }
 ```
