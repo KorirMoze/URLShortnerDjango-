@@ -123,10 +123,10 @@ Step 18: Run the following commands to enable gunicorn:<br/>
 </b>
 Step 18a:    
 You can now start and enable the Gunicorn socket. This will create the socket file at /run/gunicorn.sock now and at boot. When a connection is made to that socket, systemd will automatically start the gunicorn.service to handle it:
-   ```
+```
 sudo systemctl start gunicorn.socket
 sudo systemctl enable gunicorn.socket
-    ```
+```
 Step 19: Set up NGINX with GUNICORN<br/>
 run <b>```sudo nano /etc/nginx/sites-available/URLShortnerProject```</b><br/>
 Paste the following and be sure update your own IP, username, path and project name<br/>
