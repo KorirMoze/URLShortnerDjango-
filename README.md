@@ -79,20 +79,35 @@ run <b> ```sudo apt install nginx libpq-dev```</b>
 Step 16: Check to see if gunicorn can host your django project. Change URLShortnerProject to whatever your project is called<br/>
 run <b>```gunicorn --bind 0.0.0.0:8000 URLShortnerProject.wsgi```</b>
 
-Step 17: Deactivate venv and Create gunicorn systemd file<br/>
+Step 17: Deactivate venv and Create systemd Socket &Create gunicorn systemd file<br/>
 run <b>```deactivate```</b>. The (venv) on terminal line should be gone<br/>
+run<b>sudo nano /etc/systemd/system/gunicorn.socket</b>
+Paste the following:<br/>
+```
+[Unit]
+Description=gunicorn socket
+
+[Socket]
+ListenStream=/run/gunicorn.sock
+
+[Install]
+WantedBy=sockets.target
+```
+
+
 run <b> ```sudo nano /etc/systemd/system/gunicorn.service```</b><br/>
 Paste the following and be sure to update your project name, path and username accordingly:<br/>
 ```
 [Unit]
 Description=gunicorn daemon
+Requires=gunicorn.socket
 After=network.target
 
 [Service]
 User=username
 Group=www-data
 WorkingDirectory=/home/username/URLShortnerProject
-ExecStart=/home/username/venv/bin/gunicorn --access-logfile - --workers 3 --bind unix:/home/username/URLShortnerProject/URLShortnerProject.sock URLShortnerProject.wsgi:application
+ExecStart=/home/username/venv/bin/gunicorn --access-logfile - --workers 3 --bind unix://run/gunicorn.sock. URLShortnerProject.wsgi:application
 
 [Install]
 WantedBy=multi-user.target
