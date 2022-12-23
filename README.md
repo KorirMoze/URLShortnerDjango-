@@ -81,7 +81,7 @@ run <b>```gunicorn --bind 0.0.0.0:8000 URLShortnerProject.wsgi```</b>
 
 Step 17: Deactivate venv and Create systemd Socket &Create gunicorn systemd file<br/>
 run <b>```deactivate```</b>. The (venv) on terminal line should be gone<br/>
-run<b>sudo nano /etc/systemd/system/gunicorn.socket</b>
+run<b>```sudo nano /etc/systemd/system/gunicorn.socket```</b>
 Paste the following:<br/>
 ```
 [Unit]
